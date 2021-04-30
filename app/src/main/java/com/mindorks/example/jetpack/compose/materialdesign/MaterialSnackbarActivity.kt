@@ -1,15 +1,15 @@
 package com.mindorks.example.jetpack.compose.materialdesign
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Snackbar
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 
@@ -35,10 +35,9 @@ fun SimpleSnackbarComponent() {
     // downloaded something.
     Snackbar(
         modifier = Modifier.padding(16.dp),
-        text = {
-            Text(text = "I'm a Simple Snackbar")
-        }
-    )
+    ) {
+        Text(text = "I'm a Simple Snackbar")
+    }
 }
 
 @Composable
@@ -47,10 +46,10 @@ fun ActionSnackbarComponent() {
     // some operation will be performed(most probably click action to dismiss Snackbar)
     Snackbar(
         modifier = Modifier.padding(16.dp),
-        text = {
-            Text(text = "I'm a Snackbar with Action")
-        }, action = {
+        action = {
             Text(text = "OK", style = TextStyle(color = Color.Green))
         }
-    )
+    ) {
+        Text(text = "I'm a Snackbar with Action")
+    }
 }

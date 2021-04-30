@@ -1,19 +1,19 @@
 package com.mindorks.example.jetpack.compose.materialdesign
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.selection.ToggleableState
 import androidx.compose.material.Checkbox
+import androidx.compose.material.CheckboxDefaults
+import androidx.compose.material.Text
 import androidx.compose.material.TriStateCheckbox
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,7 +40,9 @@ fun SimpleTextComponent(text: String) {
         text = text,
         style = TextStyle(
             fontSize = 16.sp
-        ), modifier = Modifier.padding(16.dp).fillMaxWidth()
+        ), modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
     )
 }
 
@@ -73,8 +75,10 @@ fun ColoredCheckboxComponent() {
             checked = checkedState.value,
             modifier = Modifier.padding(16.dp),
             onCheckedChange = { checkedState.value = it },
-            uncheckedColor = Color.Blue,
-            checkedColor = Color.Green
+            colors = CheckboxDefaults.colors(
+                checkedColor = Color.Green,
+                uncheckedColor = Color.Blue
+            )
         )
         Text(text = "Checkbox Example with color", modifier = Modifier.padding(16.dp))
     }
@@ -86,9 +90,17 @@ fun TriStateCheckboxComponent() {
     // unchecked and intermediate state. Intermediate state can be used when the user is
     // not sure about something and he/she can opt-in or opt-out some service.
     val toggleableState =
-        listOf(ToggleableState.Off, ToggleableState.On, ToggleableState.Indeterminate)
+        listOf(
+            androidx.compose.ui.state.ToggleableState.Off,
+            androidx.compose.ui.state.ToggleableState.On,
+            androidx.compose.ui.state.ToggleableState.Indeterminate
+        )
     var counter by remember { mutableStateOf(0) }
-    Row(modifier = Modifier.padding(16.dp).fillMaxWidth()) {
+    Row(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+    ) {
         TriStateCheckbox(
             state = toggleableState[counter % 3],
             onClick = {

@@ -1,20 +1,20 @@
 package com.mindorks.example.jetpack.compose.materialdesign
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Icon
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
 
 class MaterialBottomNavigationActivity : AppCompatActivity() {
@@ -39,7 +39,9 @@ fun BottomNavigationWithLabelComponent() {
     // and are placed at the bottom of the screen so that the user can easily navigate
     // by clicking the items of the BottomNavigation
     BottomNavigation(
-        modifier = Modifier.padding(16.dp).fillMaxWidth(),
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth(),
         backgroundColor = Color.Black,
         contentColor = Color.Yellow
     ) {
@@ -49,7 +51,7 @@ fun BottomNavigationWithLabelComponent() {
             // placed horizontally.
             BottomNavigationItem(
                 label = { Text(text = item) },
-                icon = { Icon(Icons.Filled.Favorite) },
+                icon = { Icon(imageVector = Icons.Filled.Favorite, contentDescription = null) },
                 selected = selectedItem == index,
                 onClick = { selectedItem = index }
             )
@@ -62,19 +64,21 @@ fun BottomNavigationWithoutLabelComponent() {
     var selectedItem by remember { mutableStateOf(0) }
     val items = listOf("Home", "Blogs", "Profile")
     BottomNavigation(
-        modifier = Modifier.padding(16.dp).fillMaxWidth(),
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth(),
         backgroundColor = Color.Black,
         contentColor = Color.Yellow
     ) {
         items.forEachIndexed { index, item ->
             BottomNavigationItem(
                 label = { Text(text = item) },
-                icon = { Icon(Icons.Filled.Favorite) },
+                icon = { Icon(imageVector = Icons.Filled.Favorite, contentDescription = null) },
                 selected = selectedItem == index,
                 onClick = { selectedItem = index },
                 // alwaysShowLabels is used to set if you want to show the labels always or
                 // just for the current item.
-                alwaysShowLabels = false
+                alwaysShowLabel = false
             )
         }
     }

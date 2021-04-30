@@ -1,18 +1,18 @@
 package com.mindorks.example.jetpack.compose.animation
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.Crossfade
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.text.style.TextAlign
 
 class CrossFadeAnimationActivity : AppCompatActivity() {
@@ -26,7 +26,9 @@ class CrossFadeAnimationActivity : AppCompatActivity() {
 
 @Composable
 fun CrossFadeAnimation() {
-    val colors = listOf(Color.Red, Color.Green, Color.Blue, Color.Gray)
+    val colors = (0..255).map { Color(it, 0, 0) }.toList() +
+            (1..255).map { Color(0, it, 0) }.toList() +
+            (1..255).map { Color(0, 0, it) }.toList()
     var current by remember { mutableStateOf(colors[0]) }
     Column(modifier = Modifier.fillMaxSize()) {
         // Crossfade animation is used when there is change in the screen, like if there
@@ -34,12 +36,15 @@ fun CrossFadeAnimation() {
         // something like that.
         // For example, here onClick of the Box, we are changing the background color of Box
         // by using Crossfade animation.
-        Crossfade(current = current) { color ->
-            Box(Modifier.fillMaxSize().clickable(
-                onClick = {
-                    current = colors.random()
-                }
-            ).background(color))
+        Crossfade(targetState = current) { color ->
+            Box(Modifier
+                .fillMaxSize()
+                .clickable(
+                    onClick = {
+                        current = colors.random()
+                    }
+                )
+                .background(color))
             Text(
                 modifier = Modifier.fillMaxSize(),
                 textAlign = TextAlign.Center,

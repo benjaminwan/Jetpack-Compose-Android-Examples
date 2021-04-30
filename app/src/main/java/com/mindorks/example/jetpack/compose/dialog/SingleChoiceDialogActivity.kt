@@ -1,17 +1,17 @@
 package com.mindorks.example.jetpack.compose.dialog
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumnFor
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -42,9 +42,10 @@ fun SingleChoiceDialogActivityContent() {
             onClick = {
                 dialogState.value = true
             },
-            modifier = Modifier.padding(16.dp).fillMaxWidth(),
-            shape = RoundedCornerShape(8.dp),
-            backgroundColor = Color.Gray
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(8.dp)
         ) {
             Text(
                 text = "Show Countries List",
@@ -107,33 +108,34 @@ fun SingleSelectDialog(
     onSubmitButtonClick: (Int) -> Unit,
     onDismissRequest: () -> Unit
 ) {
-    val selectedOption = mutableStateOf(defaultSelected)
+    var selectedOption: Int by remember { mutableStateOf(defaultSelected) }
     Dialog(onDismissRequest = { onDismissRequest.invoke() }) {
         Surface(
-            modifier = Modifier.preferredWidth(300.dp),
+            modifier = Modifier.width(300.dp),
             shape = RoundedCornerShape(10.dp)
         ) {
             Column(modifier = Modifier.padding(10.dp)) {
                 Text(text = title)
-                Spacer(modifier = Modifier.preferredHeight(10.dp))
-                LazyColumnFor(
-                    items = optionsList,
-                    modifier = Modifier.preferredHeight(500.dp)
+                Spacer(modifier = Modifier.height(10.dp))
+                LazyColumn(
+                    modifier = Modifier.height(500.dp)
                 ) {
-                    val selected = if (selectedOption.value == -1) {
-                        ""
-                    } else {
-                        optionsList[selectedOption.value]
-                    }
+                    items(optionsList) {
+                        val selected = if (selectedOption == -1) {
+                            ""
+                        } else {
+                            optionsList[selectedOption]
+                        }
 
-                    RadioButton(it, selected) { selectedValue ->
-                        selectedOption.value = optionsList.indexOf(selectedValue)
+                        RadioButton(it, selected) { selectedValue ->
+                            selectedOption = optionsList.indexOf(selectedValue)
+                        }
                     }
                 }
-                Spacer(modifier = Modifier.preferredHeight(10.dp))
+                Spacer(modifier = Modifier.height(10.dp))
                 Button(
                     onClick = {
-                        onSubmitButtonClick.invoke(selectedOption.value)
+                        onSubmitButtonClick.invoke(selectedOption)
                         onDismissRequest.invoke()
                     },
                     shape = MaterialTheme.shapes.medium

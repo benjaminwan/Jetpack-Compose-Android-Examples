@@ -1,15 +1,17 @@
 package com.mindorks.example.jetpack.compose.materialdesign
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Slider
+import androidx.compose.material.SliderColors
+import androidx.compose.material.SliderDefaults
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
 import androidx.compose.ui.unit.dp
 
 class MaterialSliderActivity : AppCompatActivity() {
@@ -57,9 +59,11 @@ fun ColoredSliderComponent() {
         onValueChange = { newValue ->
             sliderValue = newValue
         },
-        thumbColor = Color.Yellow,
-        activeTrackColor = Color.Red,
-        inactiveTrackColor = Color.Gray
+        colors = SliderDefaults.colors(
+            thumbColor = Color.Yellow,
+            activeTrackColor = Color.Red,
+            inactiveTrackColor = Color.Gray
+        )
     )
     Text(
         text = "Slider value: $sliderValue",

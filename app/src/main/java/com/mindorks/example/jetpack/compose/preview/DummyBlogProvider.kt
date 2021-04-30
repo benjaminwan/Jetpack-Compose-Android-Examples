@@ -1,6 +1,6 @@
 package com.mindorks.example.jetpack.compose.preview
 
-import androidx.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import com.mindorks.example.jetpack.compose.data.Blog
 
 class DummyBlogProvider : PreviewParameterProvider<Blog> {

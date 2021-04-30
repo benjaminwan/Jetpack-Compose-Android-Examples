@@ -1,23 +1,25 @@
 package com.mindorks.example.jetpack.compose.dialog
 
 import android.os.Bundle
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.ScrollableColumn
-import androidx.compose.foundation.Text
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.AlertDialog
+import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.setContent
 
 class AlertDialogActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ScrollableColumn {
-                AlertDialogComponent()
+            LazyColumn {
+                item {
+                    AlertDialogComponent()
+                }
             }
         }
     }

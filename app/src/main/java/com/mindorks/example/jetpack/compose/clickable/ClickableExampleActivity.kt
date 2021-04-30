@@ -2,9 +2,11 @@ package com.mindorks.example.jetpack.compose.clickable
 
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.Text
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,17 +14,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Divider
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ContextAmbient
-import androidx.compose.ui.platform.setContent
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 class ClickableExampleActivity : AppCompatActivity() {
+    @ExperimentalFoundationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -43,43 +46,66 @@ class ClickableExampleActivity : AppCompatActivity() {
 
 @Composable
 fun SimpleButtonComponent() {
-    val context = ContextAmbient.current
+    val context = LocalContext.current
     Button(
         onClick = {
             Toast.makeText(context, "Thanks for clicking! I am Button", Toast.LENGTH_SHORT).show()
         },
-        modifier = Modifier.padding(16.dp).fillMaxWidth()
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
     ) {
         Text("Click Me")
     }
 }
 
+@ExperimentalFoundationApi
 @Composable
 fun SimpleTextComponent() {
-    val context = ContextAmbient.current
+    val context = LocalContext.current
     Text(
-        text = "Click Me",
+        text = "Click + Long Click + Double Click",
         textAlign = TextAlign.Center,
         color = Color.Black,
-        modifier = Modifier.padding(16.dp).fillMaxWidth().clickable(onClick = {
-            Toast.makeText(context, "Thanks for clicking! I am Text", Toast.LENGTH_SHORT).show()
-        }, onLongClick = {
-            Toast.makeText(context, "Thanks for LONG click! I am Text", Toast.LENGTH_SHORT).show()
-        }, onDoubleClick = {
-            Toast.makeText(context, "Thanks for DOUBLE click! I am Text", Toast.LENGTH_SHORT).show()
-        })
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+            .combinedClickable(
+                onClick = {
+                    Toast
+                        .makeText(context, "Thanks for clicking! I am Text", Toast.LENGTH_SHORT)
+                        .show()
+                }, onLongClick = {
+                    Toast
+                        .makeText(context, "Thanks for LONG click! I am Text", Toast.LENGTH_SHORT)
+                        .show()
+                }, onDoubleClick = {
+                    Toast
+                        .makeText(
+                            context,
+                            "Thanks for DOUBLE click! I am Text",
+                            Toast.LENGTH_SHORT
+                        )
+                        .show()
+                }
+            )
     )
 }
 
 @Composable
 fun SimpleCardComponent() {
-    val context = ContextAmbient.current
+    val context = LocalContext.current
     Card(
         shape = RoundedCornerShape(4.dp),
         backgroundColor = Color(0xFFFFA867.toInt()),
-        modifier = Modifier.padding(16.dp).fillMaxWidth().clickable(onClick = {
-            Toast.makeText(context, "Thanks for clicking! I am Card.", Toast.LENGTH_SHORT).show()
-        })
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxWidth()
+            .clickable(onClick = {
+                Toast
+                    .makeText(context, "Thanks for clicking! I am Card.", Toast.LENGTH_SHORT)
+                    .show()
+            })
     ) {
         Text(
             text = "Click Me",
