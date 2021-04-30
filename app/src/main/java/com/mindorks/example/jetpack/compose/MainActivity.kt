@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.mindorks.example.jetpack.compose.animation.CrossFadeAnimationActivity
+import com.mindorks.example.jetpack.compose.animation.ShakeActivity
 import com.mindorks.example.jetpack.compose.animation.ShapeRotationActivity
 import com.mindorks.example.jetpack.compose.button.MaterialButtonActivity
 import com.mindorks.example.jetpack.compose.card.CardExampleActivity
@@ -227,6 +228,12 @@ class MainActivity : ComponentActivity() {
                         context = context,
                         intent = Intent(context, ShapeRotationActivity::class.java),
                         buttonText = "Shape Rotation Animation"
+                    )
+                    Divider(color = Color.Black)
+                    ButtonComponent(
+                        context = context,
+                        intent = Intent(context, ShakeActivity::class.java),
+                        buttonText = "Shake Animation"
                     )
                 }
 
