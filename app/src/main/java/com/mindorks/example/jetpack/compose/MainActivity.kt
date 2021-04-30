@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.mindorks.example.jetpack.compose.animation.CrossFadeAnimationActivity
 import com.mindorks.example.jetpack.compose.animation.ShakeActivity
 import com.mindorks.example.jetpack.compose.animation.ShapeRotationActivity
+import com.mindorks.example.jetpack.compose.animation.VisibilityActivity
 import com.mindorks.example.jetpack.compose.button.MaterialButtonActivity
 import com.mindorks.example.jetpack.compose.card.CardExampleActivity
 import com.mindorks.example.jetpack.compose.clickable.ClickableExampleActivity
@@ -234,6 +235,12 @@ class MainActivity : ComponentActivity() {
                         context = context,
                         intent = Intent(context, ShakeActivity::class.java),
                         buttonText = "Shake Animation"
+                    )
+                    Divider(color = Color.Black)
+                    ButtonComponent(
+                        context = context,
+                        intent = Intent(context, VisibilityActivity::class.java),
+                        buttonText = "Visibility Animation"
                     )
                 }
 

@@ -1,22 +1,26 @@
 package com.mindorks.example.jetpack.compose.animation
 
 import android.os.Bundle
+import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.animation.core.*
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.keyframes
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.unit.dp
 
-class ShakeActivity : AppCompatActivity() {
+class ShakeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -58,28 +62,6 @@ fun ShakeComponent() {
             isEnabled.value = true
         }
     )
-
-    /*var shake by remember { mutableStateOf(0.dp) }
-    val shakeOffset = animateDpAsState(
-        targetValue = 0.dp, animationSpec = keyframes {
-            durationMillis = 300
-            0.dp at 0 //如果觉得这个动画太硬朗，在这里是可以制定插值函数的。比如下面的
-            (-10).dp at 25 with LinearOutSlowInEasing //自己翻译吧
-            0.dp at 50
-            10.dp at 75
-            0.dp at 100
-            (-8).dp at 125
-            0.dp at 150
-            8.dp at 175
-            0.dp at 200
-            (-5).dp at 225
-            0.dp at 250
-            5.dp at 275
-            0.dp at 300
-        }
-    ) {
-        shake.value
-    }*/
     Column(
         modifier = Modifier
             .fillMaxSize()
