@@ -245,6 +245,12 @@ class MainActivity : ComponentActivity() {
                         intent = Intent(context, ContentSizeActivity()::class.java),
                         buttonText = "ContentSize Animation"
                     )
+                    Divider(color = Color.Black)
+                    ButtonComponent(
+                        context = context,
+                        intent = Intent(context, TransitionActivity()::class.java),
+                        buttonText = "Transition Animation"
+                    )
                 }
 
             }

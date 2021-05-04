@@ -52,6 +52,7 @@
         <activity android:name=".animation.ShakeActivity" />
         <activity android:name=".animation.VisibilityActivity" />
         <activity android:name=".animation.ContentSizeActivity" />
+        <activity android:name=".animation.TransitionActivity" />
     </application>
 
 </manifest>
