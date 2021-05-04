@@ -75,18 +75,22 @@ private fun updateTransitionData(boxState: BoxState): TransitionData {
 fun TransitionComponent() {
     var currentState by remember { mutableStateOf(BoxState.Collapsed) }
     val transition = updateTransition(currentState)
-    val rect by transition.animateRect { state ->
-        when (state) {
-            BoxState.Collapsed -> Rect(0f, 0f, 100f, 100f)
-            BoxState.Expanded -> Rect(100f, 100f, 300f, 300f)
-        }
-    }
-    val borderWidth by transition.animateDp { state ->
-        when (state) {
-            BoxState.Collapsed -> 1.dp
-            BoxState.Expanded -> 2.dp
-        }
-    }
+    val rect by transition.animateRect(
+        targetValueByState = { state ->
+            when (state) {
+                BoxState.Collapsed -> Rect(0f, 0f, 100f, 100f)
+                BoxState.Expanded -> Rect(100f, 100f, 300f, 300f)
+            }
+        }, label = "rect"
+    )
+    val borderWidth by transition.animateDp(
+        targetValueByState = { state ->
+            when (state) {
+                BoxState.Collapsed -> 1.dp
+                BoxState.Expanded -> 2.dp
+            }
+        }, label = "borderWidth"
+    )
     val color by transition.animateColor(
         transitionSpec = {
             when {
@@ -95,19 +99,21 @@ fun TransitionComponent() {
                 else ->
                     tween(durationMillis = 500)
             }
-        }
+        }, label = "color"
     ) { state ->
         when (state) {
             BoxState.Collapsed -> MaterialTheme.colors.secondary
             BoxState.Expanded -> MaterialTheme.colors.secondaryVariant
         }
     }
-    val degree by transition.animateFloat { state ->
-        when (state) {
-            BoxState.Collapsed -> 0f
-            BoxState.Expanded -> 45f
-        }
-    }
+    val degree by transition.animateFloat(
+        targetValueByState = { state ->
+            when (state) {
+                BoxState.Collapsed -> 0f
+                BoxState.Expanded -> 45f
+            }
+        }, label = "degree"
+    )
     Column(
         modifier = Modifier
             .fillMaxSize()
